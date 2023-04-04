@@ -1,11 +1,12 @@
-# settings/base.py
 from pathlib import Path
+
+DEBUG = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Use environment variable from Google Cloud
+# TODO: Use environment variables from Google Cloud
 
 SECRET_KEY = "django-insecure-nqsp2$dz0ji6hn09!1$+@g3mcuhmb(fu#rf+4=ah%#1*sr6fk$"
 
@@ -33,10 +34,15 @@ MIDDLEWARE = [
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Database settings
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "trello_clone",
+        "USER": "postgres",
+        "PASSWORD": "12345",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -45,7 +51,8 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation"
+        ".UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
