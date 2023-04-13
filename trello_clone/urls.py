@@ -29,5 +29,5 @@ if settings.DEBUG:
     ]
 
 urlpatterns += [
-    path("", admin.site.urls),
+    path("admin/", admin.site.urls),
 ]
