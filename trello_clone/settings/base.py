@@ -1,14 +1,45 @@
 from pathlib import Path
 
-DEBUG = True
+from google.cloud import secretmanager
+
+client = secretmanager.SecretManagerServiceClient()
+
+# Location of the secrets
+
+parent = "projects/sonorous-lyceum-382300/secrets"
+
+# The version of the secrets
+
+version = "latest"
+
+# Keys in this dict should be the same as on Google Cloud
+# as they will be used to retrieve their values from there.
+
+secrets = {
+    "SECRET_KEY": "",
+    "DEBUG": "",
+    "DB_NAME": "",
+    "DB_USER": "",
+    "DB_PASS": "",
+    "DB_HOST": "",
+    "DB_PORT": "",
+}
+
+# Setting the secrets in the secrets dictionary by getting them from Google Clouds.
+
+for secret in secrets:
+    secrets[secret] = client.access_secret_version(
+        request={"name": f"{parent}/{secret}/versions/{version}"}
+    ).payload.data.decode()  # Decoding because the value comes in as a bytestring.
+
+DEBUG = bool(secrets["DEBUG"])
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# TODO: Use environment variables from Google Cloud
 
-SECRET_KEY = "django-insecure-nqsp2$dz0ji6hn09!1$+@g3mcuhmb(fu#rf+4=ah%#1*sr6fk$"
+SECRET_KEY = secrets["SECRET_KEY"]
 
 # Application definition
 
@@ -39,11 +70,11 @@ MIDDLEWARE = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "trello_clone",
-        "USER": "postgres",
-        "PASSWORD": "12345",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": secrets["DB_NAME"],
+        "USER": secrets["DB_USER"],
+        "PASSWORD": secrets["DB_PASS"],
+        "HOST": secrets["DB_HOST"],
+        "PORT": secrets["DB_PORT"],
     }
 }
 
