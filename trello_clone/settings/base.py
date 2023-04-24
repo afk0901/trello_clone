@@ -51,6 +51,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_version_checks",
+    "user",
+    "board",
+    "list",
+    "card",
+    "workspace",
 ]
 
 MIDDLEWARE = [

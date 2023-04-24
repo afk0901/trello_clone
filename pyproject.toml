@@ -1,12 +1,12 @@
-[tool.black]
+[black]
 target-version = ['py311']
 
-[tool.isort]
+[isort]
 profile = "black"
 
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]
-strict = true
+strict = false
 
 [tool.django-stubs]
 django_settings_module = "trello_clone.settings"

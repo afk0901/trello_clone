@@ -1,0 +1,7 @@
+django
+django-stubs
+django_debug_toolbar
+django_version_checks
+google-cloud-secret-manager
+pre-commit
+psycopg2
