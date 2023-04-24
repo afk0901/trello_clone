@@ -1,0 +1,6 @@
+# Use this file to install development packages.
+
+django-stubs
+django_debug_toolbar
+django_version_checks
+pre-commit
