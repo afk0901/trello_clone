@@ -16,8 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from rest_framework.routers import DefaultRouter
 
 from trello_clone import settings
+from workspace import viewsets
+
+router = DefaultRouter()
+router.register("workspaces", viewsets.WorkspaceViewSet, basename="workspaces")
+# router.register('users',)
 
 urlpatterns = []
 
@@ -28,4 +34,8 @@ if settings.DEBUG:
         path("__debug__/", include(debug_toolbar.urls)),
     ]
 
-urlpatterns += [path("admin/", admin.site.urls)]
+urlpatterns += [
+    path("admin/", admin.site.urls),
+    path("", include(router.urls)),
+    path("api-login/", include("rest_framework.urls")),
+]

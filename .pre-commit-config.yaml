@@ -56,3 +56,4 @@ repos:
           - django_version_checks
           - django_debug_toolbar
           - psycopg2
+          - djangorestframework
